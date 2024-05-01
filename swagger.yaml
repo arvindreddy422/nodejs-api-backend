@@ -1,0 +1,207 @@
+openapi: '3.1.0'
+info:
+  title: Express API
+  description: documentation
+  version: 1.1.0
+  contact:
+    email: ak@gmail.com
+    url: 'https://ak422.netlify.app'
+
+servers:
+  - url: 'http://localhost:4000/api/'
+    description: for local host - secure
+
+paths:
+  /books:
+    get:
+      tags: # other api of this tags group up in to one
+        - Object
+      summary: returns all books
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: #  for object type
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  author:
+                    type: string
+                  publication_date:
+                    type: date
+                  language:
+                    type: string
+                  pages:
+                    type: number
+                  publisher:
+                    type: string
+
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /books/{id}:
+    get:
+      tags: # other api of this tags group up in to one
+        - Object
+      summary: returns book whith request id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          default: akr
+          schema:
+            type: string
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: #  for object type
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  author:
+                    type: string
+                  publication_date:
+                    type: date
+                  language:
+                    type: string
+                  pages:
+                    type: number
+                  publisher:
+                    type: string
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /addbook:
+    post:
+      tags: # other api of this tags group up in to one
+        - Object
+      summary: adds book to library
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: #  for object type
+                title:
+                  type: string
+                author:
+                  type: string
+                publish_date:
+                  type: date
+                language:
+                  type: string
+                pages:
+                  type: number
+                publisher:
+                  type: string
+
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /deletebook/{id}:
+    delete:
+      tags: # other api of this tags group up in to one
+        - Object
+      summary: delete book and returns book id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          default: akr
+          schema:
+            type: string
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: #  for object type
+                  id:
+                    type: string
+                  message:
+                    type: string
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /updatebook/{id}:
+    put:
+      tags: # other api of this tags group up in to one
+        - Object
+      summary: update book and return id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          default: akr
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: #  for object type
+                title:
+                  type: string
+                author:
+                  type: string
+                publish_date:
+                  type: date
+                language:
+                  type: string
+                pages:
+                  type: number
+                publisher:
+                  type: string
+
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: #  for object type
+                  message:
+                    type: string
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
