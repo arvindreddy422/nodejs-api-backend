@@ -3,13 +3,18 @@ const pool = require('../config/db')
 module.exports = async (req, res) => {
   const id = req.params.id
   const { title, author, publish_date, language, pages, publisher } = req.body
-  let cmd = `${title ? "title='" + title + "', " : ''}${
-    author ? "author='" + author + "', " : ''
-  }${publish_date ? "publication_date='" + publish_date + "', " : ''}${
-    language ? "language='" + language + "', " : ''
-  }${pages ? "pages='" + pages + "', " : ''}${
-    publisher ? "publisher='" + publisher + "' " : ''
+  
+  let cmd = `${title ? "title='" + title + "'" : ''}${
+    author ? "#author='" + author + "'" : ''
+  }${publish_date ? "#publication_date='" + publish_date + "'" : ''}${
+    language ? "#language='" + language + "'" : ''
+  }${pages ? "#pages='" + pages + "'" : ''}${
+    publisher ? "#publisher='" + publisher + "'" : ''
   }`
+
+  cmd = cmd.split('#')
+  cmd = cmd.join(', ')
+  
   if (cmd.length === 0) {
     res.status(200).json({ message: 'Provide Attributes' })
   }
